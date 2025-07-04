@@ -16,7 +16,8 @@ class VectorStore:
 
     def search(self, query_embedding, top_k=5):
         if self.index.ntotal == 0:
-            return []  # Return empty if no vectors are added
+            print("No data in vector store.")
+            return []
     
         D, I = self.index.search(np.array([query_embedding]).astype('float32'), top_k)
         results = []
@@ -24,6 +25,7 @@ class VectorStore:
             if 0 <= idx < len(self.metadata):
                 results.append(self.metadata[idx])
         return results
+
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 vector_store = None

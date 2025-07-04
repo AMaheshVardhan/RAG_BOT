@@ -64,18 +64,19 @@ with st.sidebar:
             file_infos.append({"name": file.name, "path": path})
         status = coordinator.handle_file_upload(file_infos)
         st.success(f"Files processed. Status: {status}")
-
-st.header("Chat")
-query = st.text_input("Your question:")
+        
 if st.button("Ask"):
     if query.strip() == "":
         st.warning("Enter a question.")
+    elif not coordinator.chat_history:
+        st.warning("Please upload and process documents first.")
     else:
         result = coordinator.handle_user_query(query)
         st.markdown(f"**Answer:** {result['answer']}")
         st.markdown("**Source Context:**")
         for c in result["source_context"]:
             st.markdown(f"- **{c['source']}**: {c['text']}")
+
 
 if coordinator.chat_history:
     st.header("Chat History")

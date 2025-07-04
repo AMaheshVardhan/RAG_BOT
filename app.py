@@ -6,7 +6,7 @@ from retrieval_agent import RetrievalAgent_MCP, initialize_vector_store
 from llm_response_agent import LLMResponseAgent_MCP
 import google.generativeai as genai
 
-GOOGLE_API_KEY = "YOUR_API_KEY_HERE"
+GOOGLE_API_KEY = "AIzaSyDjUXlzJb32blLYPWHZ_32_uO9tpD1uJeo"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 initialize_vector_store()

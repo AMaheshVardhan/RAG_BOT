@@ -18,12 +18,15 @@ class VectorStore:
         if self.index.ntotal == 0:
             print("No data in vector store.")
             return []
+    
         D, I = self.index.search(np.array([query_embedding]).astype('float32'), top_k)
         results = []
         for idx in I[0]:
-            if 0 <= idx < len(self.metadata):
+            # FAISS returns -1 if there are fewer items than top_k
+            if idx != -1 and idx < len(self.metadata):
                 results.append(self.metadata[idx])
         return results
+
 
 
 

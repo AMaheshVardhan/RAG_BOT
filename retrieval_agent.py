@@ -32,6 +32,7 @@ class VectorStore:
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 vector_store = None
+top_chunks = vector_store.search(query_emb, top_k=5)
 
 def initialize_vector_store(dim=384):
     global vector_store

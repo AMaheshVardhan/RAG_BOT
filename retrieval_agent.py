@@ -16,18 +16,18 @@ class VectorStore:
 
     def search(self, query_embedding, top_k=5):
         if self.index.ntotal == 0:
-            print("No data in vector store.")
+            print("Vector store is empty.")
             return []
     
         D, I = self.index.search(np.array([query_embedding]).astype('float32'), top_k)
         results = []
         for idx in I[0]:
-            # Ensure idx is within valid metadata range
             if isinstance(idx, (int, np.integer)) and 0 <= idx < len(self.metadata):
                 results.append(self.metadata[idx])
             else:
-                print(f"Skipping invalid index: {idx}")
+                print(f"Invalid index: {idx} — Skipping")
         return results
+
 
 
 

@@ -22,10 +22,13 @@ class VectorStore:
         D, I = self.index.search(np.array([query_embedding]).astype('float32'), top_k)
         results = []
         for idx in I[0]:
-            # FAISS returns -1 if there are fewer items than top_k
-            if idx != -1 and idx < len(self.metadata):
+            # Ensure idx is within valid metadata range
+            if isinstance(idx, (int, np.integer)) and 0 <= idx < len(self.metadata):
                 results.append(self.metadata[idx])
+            else:
+                print(f"Skipping invalid index: {idx}")
         return results
+
 
 
 
